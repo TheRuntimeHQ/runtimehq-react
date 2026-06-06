@@ -11,7 +11,7 @@ const mockGetRuntime = vi.fn();
 
 vi.mock("@theruntimehq/js", () => {
   return {
-    RuntimeHQClient: vi.fn().mockImplementation((options) => {
+    RuntimeHQClient: vi.fn().mockImplementation(function (options) {
       if (!options || typeof options.runtimeKey !== "string") {
         throw new Error("runtimeKey is required and must be a string");
       }
