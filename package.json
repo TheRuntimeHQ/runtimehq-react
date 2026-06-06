@@ -1,0 +1,55 @@
+{
+  "name": "@theruntimehq/react",
+  "version": "0.1.0",
+  "description": "Official React SDK for RuntimeHQ status checking and monitoring.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "runtimehq",
+    "status",
+    "monitoring",
+    "sdk",
+    "react",
+    "hooks"
+  ],
+  "author": "RuntimeHQ",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRuntimeHQ/runtimehq-react.git"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@theruntimehq/js": "^0.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^15.0.7",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "jsdom": "^24.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
