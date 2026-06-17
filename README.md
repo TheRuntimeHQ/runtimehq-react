@@ -14,6 +14,20 @@ This SDK is a **pure state management SDK** with:
 
 ---
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Core Hooks & Provider APIs](#core-hooks--provider-apis)
+  - [1. Global Provider (\`RuntimeHQProvider\`)](#1-global-provider-runtimehqprovider)
+  - [2. Context Hook (\`useRuntimeHQ\`)](#2-context-hook-useruntimehq)
+  - [3. Standalone Direct Hook (\`useRuntimeHQState\`)](#3-standalone-direct-hook-useruntimehqstate)
+- [Convenience Helpers](#convenience-helpers)
+- [Server Rendering (SSR) & Next.js App Router Integration](#server-rendering-ssr--nextjs-app-router-integration)
+- [Examples Directory](#examples-directory)
+- [License](#license)
+
+---
+
 ## Installation
 
 Ensure you have `@theruntimehq/js` and React installed in your project:
