@@ -1,6 +1,6 @@
 {
   "name": "@theruntimehq/react",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Official React SDK for RuntimeHQ status checking and monitoring.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
