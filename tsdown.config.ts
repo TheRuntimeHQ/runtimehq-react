@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -9,5 +9,4 @@ export default defineConfig({
   minify: false,
   sourcemap: true,
   treeshake: true,
-  splitting: false,
 });

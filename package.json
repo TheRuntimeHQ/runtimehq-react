@@ -2,13 +2,16 @@
   "name": "@theruntimehq/react",
   "version": "0.2.0",
   "description": "Official React SDK for RuntimeHQ status checking and monitoring.",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
+      "types": {
+        "import": "./dist/index.d.mts",
+        "require": "./dist/index.d.cts"
+      },
+      "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     }
   },
@@ -16,7 +19,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "test": "vitest run",
     "prepublishOnly": "npm run build",
     "postversion": "git push && git push --tags"
@@ -40,7 +43,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@theruntimehq/js": "^0.2.0"
+    "@theruntimehq/js": "^0.2.1"
   },
   "devDependencies": {
     "@testing-library/react": "^15.0.7",
@@ -49,8 +52,8 @@
     "jsdom": "^24.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tsup": "^8.0.2",
+    "tsdown": "^0.22.3",
     "typescript": "^5.4.5",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.9"
   }
 }
