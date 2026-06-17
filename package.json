@@ -40,7 +40,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@theruntimehq/js": "^0.1.4"
+    "@theruntimehq/js": "^0.2.0"
   },
   "devDependencies": {
     "@testing-library/react": "^15.0.7",

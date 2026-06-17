@@ -1,8 +1,8 @@
-import { RuntimeResponse } from "@theruntimehq/js";
+import { RuntimeResponse, CapabilityState } from "@theruntimehq/js";
 
 export type {
   RuntimeState,
-  RuntimeSourceType,
+  CapabilityState,
   RuntimeResponse,
   RuntimeHQClientOptions,
   WatchRuntimeOptions,
@@ -12,4 +12,6 @@ export interface RuntimeHQContextValue {
   runtime: RuntimeResponse | null;
   loading: boolean;
   error: Error | null;
+  hasCapability: (name: string) => boolean;
+  getCapabilityState: (name: string) => CapabilityState | undefined;
 }

@@ -112,7 +112,7 @@ function IndependentWidget() {
 
 ## Convenience Helpers
 
-Quickly determine states using utility checkers. These accept either the full `RuntimeResponse` object, the `RuntimeState` string, or `null`/`undefined`.
+Quickly determine states using utility checkers. These accept either the full `RuntimeResponse` object, a `CapabilityState` object, the `RuntimeState` string, or `null`/`undefined`.
 
 ```typescript
 import { 
@@ -196,6 +196,36 @@ export default function ClientSidePoller({ initialData }: ClientSidePollerProps)
   );
 }
 ```
+
+## Examples Directory
+
+Check out the [examples directory](./examples) for common integration patterns:
+
+| File Name | Business Outcome |
+| :--- | :--- |
+| `01-application-wide-banner.tsx` | Inform all users when the application is degraded, under maintenance, or unavailable. |
+| `02-capability-outage-tooltip.tsx` | Explain why a specific feature is unavailable. |
+| `03-feature-gating.tsx` | Hide unavailable functionality from users. |
+| `04-disable-checkout-when-payments-down.tsx` | Prevent purchases when the payments capability is unavailable. |
+| `05-disable-document-upload-during-maintenance.tsx` | Prevent uploads while the upload capability is under maintenance. |
+| `06-read-only-mode-during-outage.tsx` | Keep the application usable while blocking write operations. |
+| `07-degraded-experience-message.tsx` | Communicate reduced functionality without blocking users. |
+| `08-runtime-status-indicator.tsx` | Show operational status in the application header, footer, or navigation. |
+| `09-customer-facing-status-page.tsx` | Build a public status page powered by RuntimeHQ. |
+| `10-runtime-aware-navigation.tsx` | Hide or disable navigation items for unavailable capabilities. |
+| `11-runtime-aware-routing.tsx` | Prevent access to routes backed by unavailable capabilities. |
+| `12-runtime-aware-redirection.tsx` | Automatically redirect users when a capability becomes unavailable. |
+| `13-runtime-aware-fallback-route.tsx` | Redirect users to an alternative workflow when the primary capability is unavailable. |
+| `14-outage-toast-notifications.tsx` | Notify users immediately when runtime state changes occur. |
+| `15-runtime-dashboard.tsx` | Build an operational dashboard displaying application health and capability health. |
+| `16-multi-application-operations-center.tsx` | Monitor multiple applications from a unified screen. |
+| `17-runtime-aware-error-page.tsx` | Replace generic errors with operationally-aware messaging. |
+| `18-runtime-aware-empty-state.tsx` | Show meaningful empty states when functionality is unavailable. |
+| `19-maintenance-lock-screen.tsx` | Restrict access to workflows during active maintenance windows. |
+| `20-live-system-health-widget.tsx` | Embed a reusable health widget anywhere in the application. |
+| `21-production-ready-provider.tsx` | Complete production integration including provider setup, refresh handling, and resilience patterns. |
+
+---
 
 ## License
 

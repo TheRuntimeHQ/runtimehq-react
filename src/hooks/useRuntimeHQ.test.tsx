@@ -32,11 +32,13 @@ describe("React SDK Hooks & Providers", () => {
     applicationId: "app_123",
     state: "OPERATIONAL",
     message: "All operational",
-    sourceType: "OPERATIONAL",
-    startedAt: new Date("2026-06-05T12:00:00Z"),
+    capabilityStates: [],
+    version: 1,
     updatedAt: new Date("2026-06-05T12:30:00Z"),
     dataStatus: "FRESH",
     lastSuccessfulFetchAt: new Date(),
+    hasCapability: vi.fn(),
+    getCapabilityState: vi.fn(),
   };
 
   beforeEach(() => {
@@ -69,6 +71,8 @@ describe("React SDK Hooks & Providers", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.runtime).toBeNull();
       expect(result.current.error).toBeNull();
+      expect(typeof result.current.hasCapability).toBe('function');
+      expect(result.current.hasCapability('test')).toBe(false);
     });
 
     it("should receive status updates from watchRuntime and turn loading:false", () => {

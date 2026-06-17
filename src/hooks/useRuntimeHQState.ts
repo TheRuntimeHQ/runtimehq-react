@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { RuntimeHQClient } from "@theruntimehq/js";
 import { RuntimeResponse, RuntimeHQContextValue } from "../types";
 
@@ -72,9 +72,19 @@ export function useRuntimeHQState(options: UseRuntimeHQStateOptions): RuntimeHQC
     };
   }, [client, clientInitError, intervalSeconds]);
 
+  const hasCapability = useCallback((name: string) => {
+    return runtime ? runtime.hasCapability(name) : false;
+  }, [runtime]);
+
+  const getCapabilityState = useCallback((name: string) => {
+    return runtime ? runtime.getCapabilityState(name) : undefined;
+  }, [runtime]);
+
   return {
     runtime,
     loading,
     error,
+    hasCapability,
+    getCapabilityState,
   };
 }
