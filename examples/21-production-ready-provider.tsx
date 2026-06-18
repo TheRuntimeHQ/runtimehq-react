@@ -22,7 +22,7 @@ function AppContent() {
 
 export function App() {
   return (
-    <RuntimeHQProvider runtimeKey="rt_prod_your_key" intervalSeconds={30}>
+    <RuntimeHQProvider runtimeKey="rt_prod_your_key" intervalSeconds={60}>
       <AppContent />
     </RuntimeHQProvider>
   );

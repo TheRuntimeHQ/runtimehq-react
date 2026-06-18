@@ -13,7 +13,7 @@ export interface UseRuntimeHQStateOptions {
  * A direct React hook to fetch and watch RuntimeHQ status without using a Context Provider.
  */
 export function useRuntimeHQState(options: UseRuntimeHQStateOptions): RuntimeHQContextValue {
-  const { runtimeKey, intervalSeconds = 15 } = options;
+  const { runtimeKey, intervalSeconds = 60 } = options;
 
   // Safely instantiate RuntimeHQClient
   const [client, clientInitError] = useMemo(() => {

@@ -51,7 +51,7 @@ export default function Root() {
   return (
     <RuntimeHQProvider 
       runtimeKey="rt_prod_your_key_here" 
-      intervalSeconds={15}
+      intervalSeconds={60}
     >
       <App />
     </RuntimeHQProvider>
@@ -114,7 +114,7 @@ import { useRuntimeHQState } from "@theruntimehq/react";
 function IndependentWidget() {
   const { runtime, loading, error } = useRuntimeHQState({
     runtimeKey: "rt_prod_your_key_here",
-    intervalSeconds: 30,
+    intervalSeconds: 60,
   });
 
   if (loading) return <Spinner />;
@@ -195,7 +195,7 @@ interface ClientSidePollerProps {
 export default function ClientSidePoller({ initialData }: ClientSidePollerProps) {
   const { runtime } = useRuntimeHQState({
     runtimeKey: "rt_prod_your_key_here",
-    intervalSeconds: 15,
+    intervalSeconds: 60,
   });
 
   // Hydrate client-side with server-fetched data initially
