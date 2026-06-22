@@ -62,7 +62,7 @@ export default function Root() {
 #### Provider Props
 | Prop | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `runtimeKey` | `string` | **Yes** | - | Your RuntimeHQ API status key (must start with `rt_prod_` or `rt_test_`). |
+| `runtimeKey` | `string` | **Yes** | - | Your RuntimeHQ API status key (must start with `rt_prod_` or `rt_test_`). This is a public, read-only key that is absolutely safe for client-side exposure or browser environments. |
 | `intervalSeconds` | `number` | No | `15` | Polling interval for updates in seconds. |
 
 ---
@@ -141,6 +141,29 @@ isOperational(runtime)  // returns boolean
 isMaintenance(runtime)  // returns boolean
 isDegraded(runtime)     // returns boolean
 isOutage(runtime)       // returns boolean
+```
+
+---
+
+## State Resolution Architecture
+
+```mermaid
+sequenceDiagram
+    participant App as React Application
+    participant SDK as @theruntimehq/react
+    participant Edge as Global Edge Cache
+
+    Note over SDK, Edge: 1. Asynchronous Background Polling
+    loop Every intervalSeconds
+        SDK->>Edge: Fetch latest operational state
+        Edge-->>SDK: Cached State JSON (High Availability)
+        SDK->>SDK: Update local React Context
+    end
+
+    Note over App, SDK: 2. Instant Local Resolution
+    App->>SDK: getCapabilityState("capability-name")
+    SDK-->>App: Returns state from local memory instantly
+    Note over App: Zero network latency impact on application speed
 ```
 
 ---
