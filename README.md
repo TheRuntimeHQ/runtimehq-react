@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@theruntimehq/react.svg)](https://www.npmjs.com/package/@theruntimehq/react)
 [![license](https://img.shields.io/npm/l/@theruntimehq/react.svg)](https://github.com/TheRuntimeHQ/runtimehq-react/blob/main/LICENSE)
 
-The official React state management SDK for [RuntimeHQ](https://theruntimehq.com). Connect your status checks directly to your React primitives.
+The official [Runtime React SDK](https://docs.theruntimehq.com/runtime-sdks/react) for [RuntimeHQ](https://theruntimehq.com). The SDK provides a context provider and hooks to easily consume the effective runtime state in your application components.
 
 This SDK is a **pure state management SDK** with:
 - 🚫 **No visual UI components** (Customers use their own design systems).
@@ -22,6 +22,7 @@ This SDK is a **pure state management SDK** with:
   - [2. Context Hook (\`useRuntimeHQ\`)](#2-context-hook-useruntimehq)
   - [3. Standalone Direct Hook (\`useRuntimeHQState\`)](#3-standalone-direct-hook-useruntimehqstate)
 - [Convenience Helpers](#convenience-helpers)
+- [State Resolution Architecture](#state-resolution-architecture)
 - [Server Rendering (SSR) & Next.js App Router Integration](#server-rendering-ssr--nextjs-app-router-integration)
 - [Examples Directory](#examples-directory)
 - [License](#license)
@@ -62,8 +63,8 @@ export default function Root() {
 #### Provider Props
 | Prop | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `runtimeKey` | `string` | **Yes** | - | Your RuntimeHQ API status key (must start with `rt_prod_` or `rt_test_`). This is a public, read-only key that is absolutely safe for client-side exposure or browser environments. |
-| `intervalSeconds` | `number` | No | `15` | Polling interval for updates in seconds. |
+| `runtimeKey` | `string` | **Yes** | - | The [Runtime Key](https://docs.theruntimehq.com/runtime-keys) required to get the resolved operational state of the application's capabilities. This is a public, read-only key that is absolutely safe for client-side exposure or browser environments. |
+| `intervalSeconds` | `number` | No | `60` | Configurable polling interval for updates in seconds. Defaults to 60 seconds. |
 
 ---
 
