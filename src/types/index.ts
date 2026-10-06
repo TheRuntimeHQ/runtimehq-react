@@ -15,3 +15,17 @@ export interface RuntimeHQContextValue {
   hasCapability: (name: string) => boolean;
   getCapabilityState: (name: string) => CapabilityState | undefined;
 }
+
+export interface UseCapabilityResult {
+  capability: CapabilityState | undefined;
+  state: RuntimeState;
+  message: string;
+  isOperational: boolean;
+  isDegraded: boolean;
+  isOutage: boolean;
+  isMaintenance: boolean;
+  exists: boolean;
+  loading: boolean;
+  error: Error | null;
+}
+

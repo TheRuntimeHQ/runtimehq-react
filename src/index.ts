@@ -4,6 +4,7 @@ export type { RuntimeHQProviderProps } from "./provider";
 export { useRuntimeHQ } from "./hooks/useRuntimeHQ";
 export { useRuntimeHQState } from "./hooks/useRuntimeHQState";
 export type { UseRuntimeHQStateOptions } from "./hooks/useRuntimeHQState";
+export { useCapability } from "./hooks/useCapability";
 
 export * from "./helpers";
 export * from "./types";

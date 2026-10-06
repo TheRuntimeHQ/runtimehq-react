@@ -3,13 +3,12 @@
  */
 // Note: This component must be rendered inside a <RuntimeHQProvider runtimeKey="...">
 import React from "react";
-import { useRuntimeHQ } from "@theruntimehq/react";
+import { useCapability } from "@theruntimehq/react";
 
 export function VideoPlayerPage() {
-  const { getCapabilityState } = useRuntimeHQ();
-  const highDefStreaming = getCapabilityState("hd-streaming");
+  const { isOutage } = useCapability("hd-streaming");
 
-  if (highDefStreaming?.state === "OUTAGE") {
+  if (isOutage) {
     return (
       <div>
         <p>HD Streaming is currently unavailable. Falling back to Standard Definition.</p>

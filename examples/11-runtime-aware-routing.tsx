@@ -3,23 +3,20 @@
  */
 // Note: This component must be rendered inside a <RuntimeHQProvider runtimeKey="...">
 import React, { useEffect } from "react";
-import { useRuntimeHQ } from "@theruntimehq/react";
+import { useCapability } from "@theruntimehq/react";
 // Assuming react-router-dom or similar
 // import { useNavigate } from "react-router-dom";
 
 export function ProtectedRoute({ capability, children }: { capability: string, children: React.ReactNode }) {
-  const { hasCapability, getCapabilityState, loading } = useRuntimeHQ();
+  const { isOutage, loading } = useCapability(capability);
   // const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && hasCapability(capability)) {
-      const cap = getCapabilityState(capability);
-      if (cap?.state === "OUTAGE") {
-        // navigate("/unavailable");
-        console.log("Redirect to unavailable page");
-      }
+    if (!loading && isOutage) {
+      // navigate("/unavailable");
+      console.log("Redirect to unavailable page");
     }
-  }, [loading, capability, hasCapability, getCapabilityState]);
+  }, [loading, isOutage]);
 
   if (loading) return <div>Loading...</div>;
   return <>{children}</>;

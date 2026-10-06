@@ -19,8 +19,9 @@ This SDK is a **pure state management SDK** with:
 - [Installation](#installation)
 - [Core Hooks & Provider APIs](#core-hooks--provider-apis)
   - [1. Global Provider (\`RuntimeHQProvider\`)](#1-global-provider-runtimehqprovider)
-  - [2. Context Hook (\`useRuntimeHQ\`)](#2-context-hook-useruntimehq)
-  - [3. Standalone Direct Hook (\`useRuntimeHQState\`)](#3-standalone-direct-hook-useruntimehqstate)
+  - [2. Capability Hook (\`useCapability\`)](#2-capability-hook-usecapability)
+  - [3. Context Hook (\`useRuntimeHQ\`)](#3-context-hook-useruntimehq)
+  - [4. Standalone Direct Hook (\`useRuntimeHQState\`)](#4-standalone-direct-hook-useruntimehqstate)
 - [Convenience Helpers](#convenience-helpers)
 - [State Resolution Architecture](#state-resolution-architecture)
 - [Server Rendering (SSR) & Next.js App Router Integration](#server-rendering-ssr--nextjs-app-router-integration)
@@ -68,9 +69,58 @@ export default function Root() {
 
 ---
 
-### 2. Context Hook (`useRuntimeHQ`)
+### 2. Capability Hook (`useCapability`)
 
-Consume the global status state anywhere inside the provider.
+The recommended, idiomatic way to monitor feature health inside components. Encapsulates fail-open defaults (`isOperational: true`, `isOutage: false` when unconfigured or loading).
+
+```tsx
+import { useCapability } from "@theruntimehq/react";
+
+function SearchComponent() {
+  const { isOutage, isDegraded, message } = useCapability("search");
+
+  // Dynamically back off request frequency when search capability is degraded
+  const debounceDelayMs = isDegraded ? 1200 : 300;
+
+  return (
+    <div className="search-container">
+      <input 
+        type="text" 
+        placeholder="Search products..." 
+        disabled={isOutage}
+        onChange={debounce(handleSearch, debounceDelayMs)}
+      />
+      {(isOutage || isDegraded) && message && (
+        <p className={`helper-message ${isOutage ? 'text-red-600' : 'text-amber-600'}`}>
+          {message}
+        </p>
+      )}
+    </div>
+  );
+}
+```
+
+#### Return Value
+```typescript
+interface UseCapabilityResult {
+  capability: CapabilityState | undefined; // Raw capability state object (or undefined if not present)
+  state: RuntimeState;                     // Current state, defaults to "OPERATIONAL" (fail-open)
+  message: string;                         // Operational or degraded message (defaults to "")
+  isOperational: boolean;                  // true by default (fail-open)
+  isDegraded: boolean;                     // true if state === "DEGRADED"
+  isOutage: boolean;                       // true if state === "OUTAGE"
+  isMaintenance: boolean;                  // true if state === "MAINTENANCE"
+  exists: boolean;                         // true if capability is registered in configuration
+  loading: boolean;                        // true until the first fetch completes
+  error: Error | null;                     // Captured network or validation error (if any)
+}
+```
+
+---
+
+### 3. Context Hook (`useRuntimeHQ`)
+
+Consume the global status state anywhere inside the provider for application-wide status banners, dashboards, or lower-level inspection.
 
 ```tsx
 import { useRuntimeHQ, isOperational } from "@theruntimehq/react";
@@ -93,15 +143,16 @@ function StatusBanner() {
 #### Return Value
 ```typescript
 interface RuntimeHQContextValue {
-  runtime: RuntimeResponse | null; // Detailed status info or null before first fetch
-  loading: boolean;                // true until the first fetch (success or failure) completes
-  error: Error | null;             // Captured network or validation error (if any)
+  runtime: RuntimeResponse | null;                                   // Detailed status info or null before first fetch
+  loading: boolean;                                                  // true until the first fetch (success or failure) completes
+  error: Error | null;                                               // Captured network or validation error (if any)
+  hasCapability: (name: string) => boolean;                          // Checks if a capability is registered
+  getCapabilityState: (name: string) => CapabilityState | undefined; // Returns resolved capability state
 }
 ```
 
 > [!IMPORTANT]
-> If `useRuntimeHQ` is invoked outside a `<RuntimeHQProvider>`, it throws a descriptive error:
-> `useRuntimeHQ must be used within a RuntimeHQProvider`
+> Both `useCapability` and `useRuntimeHQ` must be used within a `<RuntimeHQProvider>`, or they will throw a descriptive error.
 
 ---
 
@@ -262,6 +313,7 @@ Check out the [examples directory](./examples) for common integration patterns:
 | `19-maintenance-lock-screen.tsx` | Restrict access to workflows during active maintenance windows. |
 | `20-live-system-health-widget.tsx` | Embed a reusable health widget anywhere in the application. |
 | `21-production-ready-provider.tsx` | Complete production integration including provider setup, refresh handling, and resilience patterns. |
+| `22-adaptive-debounce-search.tsx` | Adapt client input debounce delay to shed backend load during degraded states. |
 
 ---
 

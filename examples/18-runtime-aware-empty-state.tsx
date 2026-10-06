@@ -3,17 +3,16 @@
  */
 // Note: This component must be rendered inside a <RuntimeHQProvider runtimeKey="...">
 import React from "react";
-import { useRuntimeHQ } from "@theruntimehq/react";
+import { useCapability } from "@theruntimehq/react";
 
 export function InvoiceList({ invoices }: { invoices: any[] }) {
-  const { getCapabilityState } = useRuntimeHQ();
-  const billing = getCapabilityState("billing");
+  const { isOutage, message } = useCapability("billing");
 
   if (invoices.length === 0) {
-    if (billing?.state === "OUTAGE") {
+    if (isOutage) {
       return (
         <div className="empty-state warn">
-          <p>We cannot fetch your invoices right now due to a system issue: {billing.message}</p>
+          <p>We cannot fetch your invoices right now due to a system issue: {message}</p>
         </div>
       );
     }

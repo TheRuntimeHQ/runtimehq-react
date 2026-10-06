@@ -3,16 +3,14 @@
  */
 // Note: This component must be rendered inside a <RuntimeHQProvider runtimeKey="...">
 import React from "react";
-import { useRuntimeHQ } from "@theruntimehq/react";
+import { useCapability } from "@theruntimehq/react";
 
 export function CheckoutButton() {
-  const { hasCapability, getCapabilityState } = useRuntimeHQ();
-  const payments = getCapabilityState("payments");
-  const isDown = hasCapability("payments") && payments?.state !== "OPERATIONAL";
+  const { isOperational, message } = useCapability("payments");
 
   return (
-    <button disabled={isDown}>
-      {isDown ? `Checkout Disabled: ${payments?.message}` : "Complete Checkout"}
+    <button disabled={!isOperational}>
+      {!isOperational ? `Checkout Disabled: ${message}` : "Complete Checkout"}
     </button>
   );
 }
